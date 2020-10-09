@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat.csproj",
+    "projectUniqueName": "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat/RealtimeChat.csproj",
     "projectName": "RealtimeChat",
-    "projectPath": "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat.csproj",
-    "outputPath": "/home/rostil/Programming/ASP.NET Core/RealtimeChat/obj/",
+    "projectPath": "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat/RealtimeChat.csproj",
+    "outputPath": "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat/obj/",
     "projectStyle": "PackageReference",
     "originalTargetFrameworks": [
       "netcoreapp3.1"

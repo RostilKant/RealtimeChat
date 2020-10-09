@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat.csproj": {}
+    "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat/RealtimeChat.csproj": {}
   },
   "projects": {
-    "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat.csproj": {
+    "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat/RealtimeChat.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat.csproj",
+        "projectUniqueName": "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat/RealtimeChat.csproj",
         "projectName": "RealtimeChat",
-        "projectPath": "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat.csproj",
+        "projectPath": "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat/RealtimeChat.csproj",
         "packagesPath": "/home/rostil/.nuget/packages/",
-        "outputPath": "/home/rostil/Programming/ASP.NET Core/RealtimeChat/obj/",
+        "outputPath": "/home/rostil/Programming/ASP.NET Core/RealtimeChat/RealtimeChat/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/rostil/.nuget/NuGet/NuGet.Config"
