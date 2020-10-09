@@ -21,6 +21,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/RealtimeChatClient" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="1idd2eSvW8kwtT0j1JSdVxG53Jd" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -31,6 +32,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RunManager" selected=".NET Launch Settings Profile.RealtimeChat">
@@ -73,7 +75,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1602241196683</updated>
-      <workItem from="1602241203481" duration="963000" />
+      <workItem from="1602241203481" duration="1331000" />
     </task>
     <servers />
   </component>
@@ -95,5 +97,19 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="278" y="133" width="804" height="528" key="Vcs.Push.Dialog.v2" timestamp="1602242406479">
+      <screen x="0" y="25" width="1366" height="743" />
+    </state>
+    <state x="278" y="133" width="804" height="528" key="Vcs.Push.Dialog.v2/0.25.1366.743@0.25.1366.743" timestamp="1602242406479" />
+    <state x="498" y="313" width="363" height="168" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1602242245817">
+      <screen x="0" y="25" width="1366" height="743" />
+    </state>
+    <state x="498" y="313" width="363" height="168" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1366.743@0.25.1366.743" timestamp="1602242245817" />
+    <state x="487" y="309" width="385" height="176" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1602242371037">
+      <screen x="0" y="25" width="1366" height="743" />
+    </state>
+    <state x="487" y="309" width="385" height="176" key="git4idea.remote.GitConfigureRemotesDialog/0.25.1366.743@0.25.1366.743" timestamp="1602242371037" />
   </component>
 </project>
