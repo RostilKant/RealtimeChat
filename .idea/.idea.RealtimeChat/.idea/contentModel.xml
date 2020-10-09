@@ -6,6 +6,7 @@
     <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p=".gitignore" t="Include" />
       <e p="Controllers" t="Include">
         <e p="WeatherForecastController.cs" t="Include" />
       </e>
@@ -19,7 +20,6 @@
       <e p="RealtimeChatClient" t="Include">
         <e p=".browserslistrc" t="Include" />
         <e p=".editorconfig" t="Include" />
-        <e p=".gitignore" t="Include" />
         <e p="README.md" t="Include" />
         <e p="angular.json" t="Include" />
         <e p="e2e" t="Include">
