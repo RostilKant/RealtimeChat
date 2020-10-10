@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/home/rostil/.dotnet/store/|arch|/|tfm|",
+      "/home/rostil/.nuget/packages"
+    ]
+  }
+}

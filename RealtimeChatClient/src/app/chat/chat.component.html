@@ -1,1 +1,37 @@
-<p>chat works!</p>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-form-field
+    appearance="standard"
+    color="accent"
+  >
+    <mat-label>Username</mat-label>
+    <label for="username">
+      <input matInput formControlName="username" id="username" placeholder="Username">
+    </label>
+  </mat-form-field>
+
+  <mat-form-field
+    appearance="outline"
+    color="accent"
+  >
+    <mat-label>Message</mat-label>
+    <label for="message">
+      <textarea matInput formControlName="message" id="message" type="text" placeholder="Message"></textarea>
+    </label>
+  </mat-form-field>
+
+  <button
+    mat-flat-button
+    type="submit"
+    [disabled]="form.invalid || submitted"
+  >Send</button>
+</form>
+
+
+<div class="chat" *ngIf="signalrService.messages">
+  <div class="chat-message" *ngFor="let userMessage of signalrService.messages">
+    <strong>{{userMessage.username}}</strong> says:
+    <pre>{{userMessage.message}}</pre>
+  </div>
+</div>
+
