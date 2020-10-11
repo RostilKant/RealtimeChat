@@ -34,7 +34,9 @@ namespace RealtimeChat
                         .AllowAnyMethod()
                         .WithOrigins("http://localhost:4200")
                     ));
-            services.AddSignalR();
+            services.AddSignalR(hubOptions => {
+                hubOptions.EnableDetailedErrors = true;
+            });
             
             services.AddControllers();
         }
