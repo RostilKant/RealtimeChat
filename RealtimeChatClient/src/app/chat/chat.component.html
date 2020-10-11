@@ -23,15 +23,19 @@
   <button
     mat-flat-button
     type="submit"
-    [disabled]="form.invalid || submitted"
+    [disabled]="submitted"
   >Send</button>
 </form>
 
 
-<div class="chat" *ngIf="signalrService.messages">
-  <div class="chat-message" *ngFor="let userMessage of signalrService.messages">
-    <strong>{{userMessage.username}}</strong> says:
-    <pre>{{userMessage.message}}</pre>
+<div class="chat">
+  <div
+    *ngFor="let userMessage of signalrService.messages"
+  >
+    <div [ngClass]="userMessage.message ? 'chat-message' : ''">
+      <strong>{{userMessage.username}}</strong>
+      <pre *ngIf="userMessage.message">{{userMessage.message}}</pre>
+    </div>
   </div>
 </div>
 

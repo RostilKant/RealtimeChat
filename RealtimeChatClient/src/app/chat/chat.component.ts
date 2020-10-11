@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
 
     this.signalrService.startConnection();
     this.signalrService.addMessageListener();
+    this.signalrService.addNotifyListener();
   }
 
   submit(): void {

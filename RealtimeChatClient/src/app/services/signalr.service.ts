@@ -14,6 +14,7 @@ export class SignalrService {
   public startConnection(): void {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl('https://localhost:5001/chat')
+      .configureLogging(signalR.LogLevel.Information)
       .build();
 
     this.hubConnection
@@ -29,7 +30,16 @@ export class SignalrService {
 
   public addMessageListener(): void {
     this.hubConnection.on('send', (message: UserMessageModel) => {
-      this.messages.unshift(message);
+      this.messages.push(message);
+    });
+  }
+
+  public addNotifyListener(): void {
+    this.hubConnection.on('notify', (notifyMessage: string) => {
+      this.messages.push({
+        username: notifyMessage,
+        message: null
+      });
     });
   }
 }
