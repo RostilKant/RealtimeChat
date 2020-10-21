@@ -19,13 +19,13 @@ namespace Entities.HubConfig
 
         public override async Task OnConnectedAsync()
         {
-            await Clients.All.Notify($"{Context.ConnectionId} join to the chat");
+            await Clients.Others.Notify($"{Context.ConnectionId} join to the chat");
             await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            await Clients.All.Notify($"{Context.ConnectionId} leave the chat");
+            await Clients.Others.Notify($"{Context.ConnectionId} leave the chat");
             await base.OnConnectedAsync();
         }
     }

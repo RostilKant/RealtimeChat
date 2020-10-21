@@ -25,19 +25,15 @@ namespace RealtimeChat
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddCors(options =>
-                options.AddPolicy("CorsPolicy", builder => 
-                    builder
-                        .AllowCredentials()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .WithOrigins("http://localhost:4200")
-                    ));
-            services.AddSignalR(hubOptions => {
-                hubOptions.EnableDetailedErrors = true;
-            });
+        { 
+            services.ConfigureCors();
+            services.ConfigureSignalR();
             
+            services.ConfigureSqlContext(Configuration);
+            
+            services.AddAuthentication();
+            services.ConfigureIdentity();
+
             services.AddControllers();
         }
 
@@ -55,6 +51,7 @@ namespace RealtimeChat
             
             app.UseCors("CorsPolicy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -3,4 +3,5 @@
 /RealtimeChatClient/.idea
 .idea
 */obj
-
+*/bin
+/Entities/Migrations
