@@ -7,5 +7,9 @@ namespace Services
     public interface IUserService
     {
         public Task<bool> RegisterUser(UserForRegistrationDto userForRegistration, ModelStateDictionary modelState);
+
+        public Task<bool> ValidateUser(UserForAuthenticationDto userForAuthenticationDto);
+
+        Task<string> CreateToken();
     }
 }

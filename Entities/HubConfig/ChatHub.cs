@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Entities.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Entities.HubConfig
@@ -12,6 +13,7 @@ namespace Entities.HubConfig
         Task Notify(string message);
     }
 
+    [Authorize]
     public class ChatHub: Hub<IChatHub>
     {
         public async Task Send(UserMessageDto userMessage) =>

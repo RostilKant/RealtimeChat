@@ -9,7 +9,7 @@ namespace Entities.DTOs
         public string Email { get; set; }
         
         [Required(ErrorMessage = "username is required")]
-        public string UserName { get; set; }
+        public string Username { get; set; }
         
         [Required(ErrorMessage = "pass is required")]
         [DataType(DataType.Password)]

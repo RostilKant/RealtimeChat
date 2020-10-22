@@ -23,6 +23,17 @@ namespace RealtimeChat.Controllers
             
             return BadRequest(ModelState);
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserForAuthenticationDto userForAuthentication)
+        {
+            if (await _userService.ValidateUser(userForAuthentication))
+            {
+                return Ok(new {Token = await _userService.CreateToken()} );
+            }
+
+            return Unauthorized();
+        }
         
     }
 }
