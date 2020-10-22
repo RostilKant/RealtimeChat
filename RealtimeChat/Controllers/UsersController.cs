@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Entities.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -33,6 +34,12 @@ namespace RealtimeChat.Controllers
             }
 
             return Unauthorized();
+        }
+
+        [HttpGet("user"), Authorize]
+        public IActionResult Result()
+        {
+            return Ok();
         }
         
     }

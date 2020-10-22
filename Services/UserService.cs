@@ -62,7 +62,7 @@ namespace Services
             var claims = await GetClaims();
             var tokenOptions = GenerateTokenOptions(credentials, claims);
             
-            return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            return $"{new JwtSecurityTokenHandler().WriteToken(tokenOptions)}";
         }
 
         private SigningCredentials SigningCredentials()
@@ -92,8 +92,8 @@ namespace Services
             var jwtSettings = _configuration.GetSection("JwtSettings");
             var tokenOptions = new JwtSecurityToken
             (
-                jwtSettings.GetSection("validIssuer").Value,
-                jwtSettings.GetSection("validAudience").Value,
+                issuer: jwtSettings.GetSection("validIssuer").Value,
+                audience: jwtSettings.GetSection("validAudience").Value,
                 claims,
                 expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings.GetSection("expires").Value)),
                 signingCredentials: signingCredentials
