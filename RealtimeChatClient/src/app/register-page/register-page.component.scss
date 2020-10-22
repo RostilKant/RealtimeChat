@@ -1,0 +1,30 @@
+p {
+  font-size: 2rem;
+  text-align: center;
+  margin: 1.5rem 0 0.5rem 0;
+}
+
+form {
+  max-width: 400px;
+  padding: 1rem;
+  margin: 0 auto;
+  align-content: center;
+}
+
+mat-form-field{
+  display: block !important;
+}
+
+button {
+  margin-top: 0.5rem;
+}
+
+mat-card.danger {
+  background: crimson !important;
+  padding: 8px;
+}
+
+mat-card.info {
+  background: #cccccc !important;
+  padding: 8px;
+}

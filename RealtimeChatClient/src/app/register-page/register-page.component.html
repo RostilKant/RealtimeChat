@@ -1,0 +1,49 @@
+<p>User Registration</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+  <mat-card class="danger" *ngIf="message" >
+    {{message}}
+  </mat-card>
+
+  <mat-form-field
+    [ngClass]="{invalid: form.get('username').touched && form.get('username').invalid }"
+    color="accent"
+    appearance="standard">
+    <mat-label>Username</mat-label>
+    <label for="username">
+      <input formControlName="username" id="username" matInput placeholder="Username">
+    </label>
+    <mat-hint>It should contain at least 1 number</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field
+    [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid }"
+    color="accent"
+    appearance="standard">
+    <mat-label>Email</mat-label>
+    <label for="email">
+      <input formControlName="email" id="email" matInput placeholder="Email">
+    </label>
+  </mat-form-field>
+
+  <mat-form-field
+    [ngClass]="{invalid: form.get('password').touched && form.get('password').invalid }"
+    color="accent"
+    appearance="standard">
+    <mat-label>Password</mat-label>
+    <label for="password">
+      <input formControlName="password" [type]="hide ? 'password' : 'text'" id="password" matInput placeholder="Password">
+    </label>
+
+    <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+
+  </mat-form-field>
+  <button
+    type="submit"
+    [disabled]="form.invalid || submitted"
+    mat-flat-button
+    color="accent"
+  >Sign up</button>
+</form>
