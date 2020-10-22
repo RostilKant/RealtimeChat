@@ -54,11 +54,11 @@ export class LoginPageComponent implements OnInit {
     };
 
     this.auth.login(user).subscribe(() => {
-      // this.form.reset();
-      // this.router.navigate(['chat']);
-      this.submitted = false;
+       this.form.reset();
+       this.router.navigate(['/chat']);
+       this.submitted = false;
     }, (error: HttpErrorResponse) => {
-      console.log(error.error);
+      console.log(error);
       this.submitted = false;
     });
   }

@@ -15,13 +15,15 @@ export class AuthService {
 
   private static setToken(response?): void {
     if (response){
-      localStorage.setItem('jwt', `Bearer ${response.token}`);
+      localStorage.setItem('jwt', `${response.token}`);
     } else {
       localStorage.clear();
     }
   }
 
-  token = () => localStorage.getItem('jwt');
+  get token(): string {
+    return localStorage.getItem('jwt');
+  }
 
   register(user: RegistrationUserModel): Observable<any>{
     return this.http.post('https://localhost:5001/api/users/register', user);
@@ -42,5 +44,4 @@ export class AuthService {
   isAuthenticated(): boolean{
     return !!this.token;
   }
-
 }

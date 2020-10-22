@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 import {UserMessageModel} from '../interfaces/user-message.model';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,14 @@ export class SignalrService {
   public messages: UserMessageModel[] = [];
   private hubConnection: signalR.HubConnection;
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   public startConnection(): void {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://localhost:5001/chat')
+      .withUrl('https://localhost:5001/chat', {accessTokenFactory: () => this.auth.token})
       .configureLogging(signalR.LogLevel.Information)
       .build();
-
+    console.log(this.auth.token);
     this.hubConnection
       .start()
       .then(() => console.log('Connection Started'))
