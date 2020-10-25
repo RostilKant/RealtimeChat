@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -30,17 +32,21 @@ namespace RealtimeChat.Controllers
         {
             if (await _userService.ValidateUser(userForAuthentication))
             {
-                return Ok(new {Token = await _userService.CreateToken()} );
+                return Ok(new
+                {
+                    Token = await _userService.CreateToken(),
+                    Username = _userService.User.UserName
+                });
             }
 
             return Unauthorized();
         }
 
-        [HttpGet("user"), Authorize]
+        /*[HttpGet("username"), Authorize]
         public IActionResult Result()
         {
-            return Ok();
-        }
+            return Ok(User.Identity.Name);
+        }*/
         
     }
 }

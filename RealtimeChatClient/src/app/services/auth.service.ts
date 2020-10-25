@@ -21,6 +21,14 @@ export class AuthService {
     }
   }
 
+  private static setUsername(response?): void {
+    if (response){
+      localStorage.setItem('username', `${response.username}`);
+    } else {
+      localStorage.clear();
+    }
+  }
+
   get token(): string {
     return localStorage.getItem('jwt');
   }
@@ -34,6 +42,7 @@ export class AuthService {
       user)
       .pipe(
         tap(AuthService.setToken),
+        tap(AuthService.setUsername)
       );
   }
 

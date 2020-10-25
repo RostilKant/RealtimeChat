@@ -19,8 +19,8 @@ namespace Services
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
-        
-        private User _user;
+
+        public User User { get; private set; }
 
         public UserService(IMapper mapper, UserManager<User> userManager, IConfiguration configuration)
         {
@@ -52,8 +52,8 @@ namespace Services
 
         public async Task<bool> ValidateUser(UserForAuthenticationDto userForAuthenticationDto)
         {
-            _user = await _userManager.FindByEmailAsync(userForAuthenticationDto.Email);
-            return (_user != null && await _userManager.CheckPasswordAsync(_user, userForAuthenticationDto.Password));
+            User = await _userManager.FindByEmailAsync(userForAuthenticationDto.Email);
+            return (User != null && await _userManager.CheckPasswordAsync(User, userForAuthenticationDto.Password));
         }
 
         public async Task<string> CreateToken()
@@ -76,9 +76,9 @@ namespace Services
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, _user.UserName)
+                new Claim(ClaimTypes.Name, User.UserName)
             };
-            var roles = await _userManager.GetRolesAsync(_user);
+            var roles = await _userManager.GetRolesAsync(User);
             
             foreach (var role in roles)
             {

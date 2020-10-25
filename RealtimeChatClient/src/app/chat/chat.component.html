@@ -1,14 +1,5 @@
 
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <mat-form-field
-    appearance="standard"
-    color="accent"
-  >
-    <mat-label>Username</mat-label>
-    <label for="username">
-      <input matInput formControlName="username" id="username" placeholder="Username">
-    </label>
-  </mat-form-field>
+<form [formGroup]="form" (ngSubmit)="submit()" (keydown.enter)="submit()">
 
   <mat-form-field
     appearance="outline"
@@ -23,6 +14,7 @@
   <button
     mat-flat-button
     type="submit"
+    (keydown.enter)="submit()"
     [disabled]="submitted"
   >Send</button>
 </form>
@@ -32,9 +24,11 @@
   <div
     *ngFor="let userMessage of signalrService.messages"
   >
-    <div [ngClass]="userMessage.message ? 'chat-message' : ''">
-      <strong>{{userMessage.username}}</strong>
-      <pre *ngIf="userMessage.message">{{userMessage.message}}</pre>
+    <div [ngClass]="isMyMessage(userMessage.username) ? 'my-chat-message' : 'others-chat-message'">
+      <div [ngClass]="userMessage.message ? 'chat-message' : ''">
+       <strong>{{userMessage.username}}</strong>
+       <pre *ngIf="userMessage.message">{{userMessage.message}}</pre>
+     </div>
     </div>
   </div>
 </div>

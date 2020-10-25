@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {SignalrService} from '../services/signalr.service';
 import {UserMessageModel} from '../interfaces/user-message.model';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-chat',
@@ -12,17 +13,19 @@ export class ChatComponent implements OnInit {
 
   form: FormGroup;
   submitted = false;
+  username = localStorage.getItem('username');
 
   constructor(
     public signalrService: SignalrService,
+    private userService: UserService,
     private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      username: [null],
       message: [null]
     });
+    this.signalrService.messages = [];
 
     this.signalrService.startConnection();
     this.signalrService.addMessageListener();
@@ -36,12 +39,23 @@ export class ChatComponent implements OnInit {
     this.submitted = true;
 
     const userMessage: UserMessageModel = {
-      username: this.form.value.username,
-      message: this.form.value.message
+      username: this.username,
+      message: this.form.get('message').value
     };
+
+   /* this.userService.getUsername().subscribe(username => {
+      userMessage.username = username;
+    });
+    userMessage.message = this.form.get('message').value;*/
+
     this.signalrService.SendMessageToAll(userMessage);
 
+    this.form.reset();
     this.submitted = false;
 
+  }
+
+  isMyMessage(messageUsername: string): boolean{
+    return this.username === messageUsername;
   }
 }
