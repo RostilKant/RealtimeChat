@@ -35,7 +35,8 @@ namespace RealtimeChat.Controllers
                 return Ok(new
                 {
                     Token = await _userService.CreateToken(),
-                    Username = _userService.User.UserName
+                    Username = _userService.User.UserName,
+                    _userService.User.PhoneNumber
                 });
             }
 

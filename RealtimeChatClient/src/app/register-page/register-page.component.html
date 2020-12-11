@@ -27,6 +27,16 @@
   </mat-form-field>
 
   <mat-form-field
+    [ngClass]="{invalid: form.get('phoneNumber').touched && form.get('phoneNumber').invalid }"
+    color="accent"
+    appearance="standard">
+    <mat-label>Phone number</mat-label>
+    <label for="email">
+      <input formControlName="phoneNumber" id="phoneNumber" matInput placeholder="Phone number">
+    </label>
+  </mat-form-field>
+
+  <mat-form-field
     [ngClass]="{invalid: form.get('password').touched && form.get('password').invalid }"
     color="accent"
     appearance="standard">
@@ -38,7 +48,7 @@
     <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
-
+    <mat-hint>It should consists of minimum 10 characters, including at least 1 number,1 symbols, 1 uppercase letter</mat-hint>
   </mat-form-field>
   <button
     type="submit"

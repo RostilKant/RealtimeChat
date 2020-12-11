@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Services
 {
-    public interface IUserService
+    public interface IUserService    
     {
         public User User { get; }
         public Task<bool> RegisterUser(UserForRegistrationDto userForRegistration, ModelStateDictionary modelState);
@@ -13,5 +13,5 @@ namespace Services
         public Task<bool> ValidateUser(UserForAuthenticationDto userForAuthenticationDto);
 
         Task<string> CreateToken();
-    }
+    } 
 }

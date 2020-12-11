@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Entities.DTOs;
 using Entities.Models;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
@@ -19,19 +21,22 @@ namespace Services
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
+        private readonly IDataProtector _protector;
 
         public User User { get; private set; }
 
-        public UserService(IMapper mapper, UserManager<User> userManager, IConfiguration configuration)
+        public UserService(IMapper mapper, UserManager<User> userManager, IConfiguration configuration, IDataProtectionProvider provider)
         {
             _mapper = mapper;
             _userManager = userManager;
             _configuration = configuration;
+            _protector = provider.CreateProtector("SensitiveData");
         }
 
         public async Task<bool> RegisterUser(UserForRegistrationDto userForRegistration, 
             ModelStateDictionary modelState)
         {
+            userForRegistration.PhoneNumber = _protector.Protect(userForRegistration.PhoneNumber);
             var user = _mapper.Map<User>(userForRegistration);
 
             var result = await _userManager.CreateAsync(user, userForRegistration.Password);
@@ -52,7 +57,9 @@ namespace Services
 
         public async Task<bool> ValidateUser(UserForAuthenticationDto userForAuthenticationDto)
         {
+            
             User = await _userManager.FindByEmailAsync(userForAuthenticationDto.Email);
+            User.PhoneNumber = _protector.Unprotect(User.PhoneNumber);
             return (User != null && await _userManager.CheckPasswordAsync(User, userForAuthenticationDto.Password));
         }
 
@@ -79,11 +86,8 @@ namespace Services
                 new Claim(ClaimTypes.Name, User.UserName)
             };
             var roles = await _userManager.GetRolesAsync(User);
-            
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
+
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
             return claims;
         }
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials
@@ -92,8 +96,8 @@ namespace Services
             var jwtSettings = _configuration.GetSection("JwtSettings");
             var tokenOptions = new JwtSecurityToken
             (
-                issuer: jwtSettings.GetSection("validIssuer").Value,
-                audience: jwtSettings.GetSection("validAudience").Value,
+                jwtSettings.GetSection("validIssuer").Value,
+                jwtSettings.GetSection("validAudience").Value,
                 claims,
                 expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings.GetSection("expires").Value)),
                 signingCredentials: signingCredentials

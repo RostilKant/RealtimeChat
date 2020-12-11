@@ -22,7 +22,7 @@ namespace RealtimeChat
                         .AllowCredentials()
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .WithOrigins("http://localhost:4200")
+                        .WithOrigins("https://localhost:4200")
                 ));
         }
 
@@ -43,11 +43,11 @@ namespace RealtimeChat
         {
             var builder = services.AddIdentityCore<User>(options =>
             {
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequiredLength = 6;
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredLength = 10;
                 options.User.RequireUniqueEmail = true;
             });
             
@@ -86,12 +86,10 @@ namespace RealtimeChat
                         {
                             var accessToken = context.Request.Query["access_token"];
 
-                            // If the request is for our hub...
                             var path = context.HttpContext.Request.Path;
                             if (!string.IsNullOrEmpty(accessToken) &&
                                 (path.StartsWithSegments("/chat")))
                             {
-                                // Read the token out of the query string
                                 context.Token = accessToken;
                             }
                             return Task.CompletedTask;

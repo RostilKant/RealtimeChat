@@ -11,6 +11,9 @@ namespace Entities.DTOs
         [Required(ErrorMessage = "username is required")]
         public string Username { get; set; }
         
+        [Required(ErrorMessage = "Phone is required")]
+        public string PhoneNumber { get; set; }
+        
         [Required(ErrorMessage = "pass is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }

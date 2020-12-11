@@ -38,6 +38,7 @@ export class RegisterPageComponent implements OnInit {
       username: [null, [Validators.required, Validators.pattern(/\d/)]],
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(8)]],
+      phoneNumber: [null, [Validators.required]],
     });
     localStorage.clear();
   }
@@ -52,6 +53,7 @@ export class RegisterPageComponent implements OnInit {
     const user: RegistrationUserModel = {
       username: this.form.value.username,
       email: this.form.value.email,
+      phoneNumber: this.form.value.phoneNumber,
       password: this.form.value.password,
       roles: ['User']
     };
