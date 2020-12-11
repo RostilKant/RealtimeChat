@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Entities.HubConfig;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,6 +45,14 @@ namespace RealtimeChat
             services.AddAutoMapper(typeof(Startup));
 
             services.AddScoped<IUserService, UserService>();
+
+            services.AddDataProtection()
+                .UseCryptographicAlgorithms(
+                    new AuthenticatedEncryptorConfiguration()
+                    {
+                        EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
+                        ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+                    });
             
             services.AddControllers()
                 .AddNewtonsoftJson(options =>

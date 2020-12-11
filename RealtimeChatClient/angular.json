@@ -67,7 +67,10 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "RealtimeChatClient:build"
+            "browserTarget": "RealtimeChatClient:build",
+            "ssl": true,
+            "sslCert": "/home/rostil/Programming/ASP .NET Core/RealtimeChat/ssl/server0.crt",
+            "sslKey": "/home/rostil/Programming/ASP .NET Core/RealtimeChat/ssl/server0.key"
           },
           "configurations": {
             "production": {
@@ -127,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "RealtimeChatClient"
+  "defaultProject": "RealtimeChatClient",
+  "cli": {
+    "analytics": false
+  }
 }
