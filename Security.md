@@ -80,17 +80,23 @@ Command for generating cert with key: **openssl req -newkey rsa:2048 -x509 -node
 
 After that should be created .pfx file, that contains both key and cert. It is needed for Kestrel server to connect via https.                                     In user secrets was added new section with all corresponding fields (path to .pfx and pass)
 
-image here
+![User secrets](Screenshots/user-secrets.jpg)
 
 Command for creating .pfx: **openssl pkcs12 -export -out server0.pfx -inkey server0.key -in server0.crt -passin pass:keyServer -passout pass:pfxServer**
 -passin: password for encrypting .key; -passout: password for encrypting .pfx; 
 
-Image here
 
-As I am using linux, it should trust this cert, so at first I copy cert to **/usr/local/share/ca-certs**, then run **sudo update-ca-certificates** and after that I should check /etc/ssl/certs for .pm for my cert, that was generated. After that **openssl verify cert.crt** for checking if cert is trusted. Also, if we want to achieve 'lock' picture in the chrome, we can use certutil for adding cert to chrome db:                                                                       **certutil -d sql:$HOME/.pki/nssdb -A -t "C,," -n "Rostil0" -i /home/rostil/Programming/ASP\ .NET\ Core/RealtimeChat/ssl/server0.crt**
+As I am using linux, it should trust this cert
+![Trusting Error](Screenshots/trusting-error.jpg)                                                  
+So at first I copy cert to **/usr/local/share/ca-certs**, then run **sudo update-ca-certificates** and after that I should check /etc/ssl/certs for .pm for my cert, that was generated. After that **openssl verify cert.crt** for checking if cert is trusted. 
 
-For adding cert for Angular I changed angular.json and add such properties:                               
-"ssl": true,                                                                              
-"sslCert": "/home/rostil/Programming/ASP .NET Core/RealtimeChat/ssl/server0.crt",                                       
-"sslKey": "/home/rostil/Programming/ASP .NET Core/RealtimeChat/ssl/server0.key"
+![Trusting Error](Screenshots/cert-trusting.jpg)                                                                  
+Also, if we want to achieve 'lock' picture in the chrome, we can use certutil for adding cert to chrome db:                                                       **certutil -d sql:$HOME/.pki/nssdb -A -t "C,," -n "Rostil0" -i /home/rostil/Programming/ASP\ .NET\ Core/RealtimeChat/ssl/server0.crt**
+
+For adding cert for Angular I changed angular.json and add such properties:    
+  {
+    "ssl": true,                                                                              
+    "sslCert": "/home/rostil/Programming/ASP .NET Core/RealtimeChat/ssl/server0.crt",                                       
+    "sslKey": "/home/rostil/Programming/ASP .NET Core/RealtimeChat/ssl/server0.key"
+  }
       
