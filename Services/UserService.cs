@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Services
@@ -21,22 +22,19 @@ namespace Services
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
-        private readonly IDataProtector _protector;
 
         public User User { get; private set; }
 
-        public UserService(IMapper mapper, UserManager<User> userManager, IConfiguration configuration, IDataProtectionProvider provider)
+        public UserService(IMapper mapper, UserManager<User> userManager, IConfiguration configuration)
         {
             _mapper = mapper;
             _userManager = userManager;
             _configuration = configuration;
-            _protector = provider.CreateProtector("SensitiveData");
         }
 
         public async Task<bool> RegisterUser(UserForRegistrationDto userForRegistration, 
             ModelStateDictionary modelState)
         {
-            userForRegistration.PhoneNumber = _protector.Protect(userForRegistration.PhoneNumber);
             var user = _mapper.Map<User>(userForRegistration);
 
             var result = await _userManager.CreateAsync(user, userForRegistration.Password);
@@ -59,8 +57,12 @@ namespace Services
         {
             
             User = await _userManager.FindByEmailAsync(userForAuthenticationDto.Email);
-            User.PhoneNumber = _protector.Unprotect(User.PhoneNumber);
-            return (User != null && await _userManager.CheckPasswordAsync(User, userForAuthenticationDto.Password));
+            if (User != null && await _userManager.CheckPasswordAsync(User, userForAuthenticationDto.Password))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public async Task<string> CreateToken()

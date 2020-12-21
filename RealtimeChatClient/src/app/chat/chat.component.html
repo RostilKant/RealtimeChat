@@ -1,17 +1,3 @@
-
-<div class="chat">
-  <div
-    *ngFor="let userMessage of signalrService.messages"
-  >
-    <div [ngClass]="isMyMessage(userMessage.username) ? 'my-chat-message' : 'others-chat-message'">
-      <div [ngClass]="userMessage.message ? 'chat-message' : ''">
-       <strong>{{userMessage.username}}</strong>
-       <pre *ngIf="userMessage.message">{{userMessage.message}}</pre>
-     </div>
-    </div>
-  </div>
-</div>
-
 <form [formGroup]="form" (ngSubmit)="submit()" (keydown.enter)="submit()">
 
   <mat-form-field
@@ -31,6 +17,20 @@
     [disabled]="submitted"
   >Send</button>
 </form>
+
+
+<div class="chat">
+  <div
+    *ngFor="let userMessage of signalrService.messages"
+  >
+    <div [ngClass]="isMyMessage(userMessage.username) ? 'my-chat-message' : 'others-chat-message'">
+      <div [ngClass]="userMessage.message ? 'chat-message' : ''">
+       <strong>{{userMessage.username}}</strong>
+       <pre *ngIf="userMessage.message">{{userMessage.message}}</pre>
+     </div>
+    </div>
+  </div>
+</div>
 
 
 

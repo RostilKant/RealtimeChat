@@ -12,7 +12,6 @@ form {
   text-decoration: azure !important;
   position: -webkit-sticky;
   position: relative;
-  bottom: -450px;
 }
 
 mat-form-field{
@@ -27,10 +26,12 @@ button {
   border-radius: 1rem;
   border: azure 1.2px solid;
   background-color: rgba(8,17,54,0.84);
-  max-width: 210px;
+  width: 200px;
+  max-width: 350px;
   padding: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
+  margin-left: 1rem;
 }
 
 div.chat {
@@ -38,7 +39,5 @@ div.chat {
 }
 
 .my-chat-message {
-  position: -webkit-sticky;
-  position: static;
-  margin-left: 1100px;
+  margin-left: 70rem;
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using AutoMapper;
 using Entities.HubConfig;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationM
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,14 +49,25 @@ namespace RealtimeChat
 
             services.AddScoped<IUserService, UserService>();
 
+            services.Configure<PasswordHasherOptions>(options =>
+            {
+                options.IterationCount = 100_000;
+            });
+
+            /*
             services.AddDataProtection()
+                .PersistKeysToFileSystem(new DirectoryInfo(@"bin/Debug/keys"))
                 .UseCryptographicAlgorithms(
                     new AuthenticatedEncryptorConfiguration()
                     {
                         EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
                         ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
-                    });
-            
+                    })
+                .ProtectKeysWithCertificate(new X509Certificate2("/home/rostil/Programming/ASP .NET Core/RealtimeChat/ssl/server0.pfx", 
+                    "pfxServer"));
+                    */
+
+
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
